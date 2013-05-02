@@ -8,7 +8,7 @@ import kivy
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.widget import Widget
-from kivy.properties import StringProperty
+from kivy.properties import StringProperty, NumericProperty, ObjectProperty
 from kivy.clock import Clock
 from kivy.vector import Vector
 
@@ -17,7 +17,7 @@ class TapCatApp(App):
         return TapCatGame()
 
 class TapCatGame(Widget):
-    pass
+    cat = ObjectProperty(None)
 
 '''
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,6 +27,16 @@ CAT
 class TheCatWidget(Widget):
     cat_label = StringProperty("")
     cat_talk_label = StringProperty("")
+    
+    Hapiness = NumericProperty(100)
+    Energy = NumericProperty(40)
+    Hygine = NumericProperty(30)
+    LitterBox = NumericProperty(30)
+    
+    _HapinessPulse = 0
+    _EnergyPulse = 0
+    _HyginePulse = 0
+    _LitterboxPulse = 0
     
     _LabelPulse = 0
     _CatTalkPulse = 0
@@ -49,6 +59,22 @@ class TheCatWidget(Widget):
         self._LabelPulse -= dt
         self._CatTalkPulse -= dt
         self._RandomTalkPulse -= dt
+        self._HapinessPulse -= dt
+        self._EnergyPulse -= dt
+        self._HyginePulse -= dt
+        self._LitterboxPulse -= dt
+        
+        if (self._LitterboxPulse <= 0):
+            self.LitterBox -= 2
+            self._LitterboxPulse = 12
+            
+        if (self._EnergyPulse <= 0):
+            self.Energy -= 1
+            self._EnergyPulse = 9
+            
+        if (self._HyginePulse <= 0):
+            self.Hygine -= 1
+            self._HyginePulse = 6
         
         if (self._LabelPulse <= 0):
             self.cat_label = ""
@@ -60,6 +86,10 @@ class TheCatWidget(Widget):
             
         if (self._CatTalkPulse <= 0):
             self.cat_talk_label = ""
+        
+        if (self._HapinessPulse <= 0):
+            self.Hapiness -= 1
+            self._HapinessPulse = 60
             
     def UpdateMovement(self, dt):
         # Move to target
@@ -85,6 +115,7 @@ class TheCatWidget(Widget):
             print ("touched!")
             self.cat_label = "Hapiness+"
             self._LabelPulse = 1
+            self.Hapiness += 1
             
     def on_touch_move(self, touch):
         pass
