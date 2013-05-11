@@ -4,9 +4,7 @@ Created on Apr 23, 2013
 @author: MintyAnt
 '''
 import random
-import kivy
 from kivy.app import App
-from kivy.uix.label import Label
 from kivy.uix.widget import Widget
 from kivy.properties import StringProperty, NumericProperty, ObjectProperty
 from kivy.clock import Clock
@@ -45,6 +43,10 @@ class TheCatWidget(Widget):
     _Speed = 2.5
     _Heading = Vector(0,0)
     _Target = Vector(0,0)
+    
+    _MarkedMoveDirection = None
+    _CatPetMeter = 10
+    _CatPetCounter = 0
     
     def __init__(self, **kwargs):
         super(TheCatWidget, self).__init__(**kwargs)
@@ -118,10 +120,21 @@ class TheCatWidget(Widget):
             self.Hapiness += 1
             
     def on_touch_move(self, touch):
-        pass
+        if (self._MarkedMoveDirection == None):
+            self._MarkedMoveDirection = Vector(touch.px - touch.x, touch.py - touch.y)
+            return
+        
+        # Whats the current move direction
+        currentMoveDir = Vector(touch.px - touch.x, touch.py - touch.y)
+        
+        # Rotation between this vector and our marked
+        angleBetween = currentMoveDir.angle(self._MarkedMoveDirection)
+        if (angleBetween >= 90 or angleBetween <= -90):
+            # Do things
+            self._MarkedMoveDirection == currentMoveDir
     
     def on_touch_up(self, touch):
-        pass
+        self._MarkedMoveDirection = None
 
 '''
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
