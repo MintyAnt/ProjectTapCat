@@ -1,47 +1,33 @@
 '''
-Created on Apr 23, 2013
+Created on Jun 18, 2013
 
 @author: MintyAnt
 '''
-import statemachine
+
 import random
-from kivy.app import App
+from kivy.clock import Clock
+from kivy.lang import Builder
 from kivy.uix.widget import Widget
 from kivy.properties import StringProperty, NumericProperty, ObjectProperty
-from kivy.clock import Clock
 from kivy.vector import Vector
+from . import statemachine
 
-gShittyGameSingleton = None
+Builder.load_file('game/entities/Cat.kv')
 
-class TapCatApp(App):
-    def build(self):
-        return GetGameInstnace()
 
-def GetGameInstnace():
-    global gShittyGameSingleton
-    if (gShittyGameSingleton == None):
-        gShittyGameSingleton = TapCatGame()
-    return gShittyGameSingleton
+class CatWidget(Widget):
+    mbIsExpired = False
+    mStateMachine = None
     
-class TapCatGame(Widget):
-    cat = ObjectProperty(None)
-    litterBox = ObjectProperty(None)
+    # Exposed Values #
+    # Cat Values
+    Speed = NumericProperty(1.0)
     
-    def __init__(self, **kwargs):
-        
-        super(TapCatGame, self).__init__(**kwargs)
-
-'''
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-CAT
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-'''
-class TheCatWidget(Widget):
-    _StateMachine = None
-    
+    # Cat Gui Stuff
     cat_label = StringProperty("")
     cat_talk_label = StringProperty("")
     
+    # Cat Levels
     Hapiness = NumericProperty(25)
     Energy = NumericProperty(40)
     Hygine = NumericProperty(30)
@@ -56,7 +42,6 @@ class TheCatWidget(Widget):
     _CatTalkPulse = 0
     _RandomTalkPulse = random.randint(1, 10)
     
-    _Speed = 2.5
     _Heading = Vector(0,0)
     
     _MarkedMoveDirection = None
@@ -64,16 +49,16 @@ class TheCatWidget(Widget):
     _CatPetCounter = 0
     
     def __init__(self, **kwargs):
-        super(TheCatWidget, self).__init__(**kwargs)
+        super(CatWidget, self).__init__(**kwargs)
         Clock.schedule_interval(self.Update, 1.0 / 60.0)
         
-        self._StateMachine = statemachine.StateMachine(self)
-        self._StateMachine.SetState(statemachine.StateCatWander())
+        self.mStateMachine = statemachine.StateMachine(self)
+        self.mStateMachine.SetState(statemachine.StateCatWander())
         self._CatPettingCounter = 0
     
     def Update(self, dt):
         # States
-        self._StateMachine.Update(dt)
+        self.mStateMachine.Update(dt)
         
         # Pulse crap
         self._LabelPulse -= dt
@@ -148,35 +133,3 @@ class TheCatWidget(Widget):
     
     def on_touch_up(self, touch):
         self._MarkedMoveDirection = None
-
-class TheLitterBoxWidget(Widget):
-    #DisplayLitter = StringProperty("0/0")
-    _LitterCount = NumericProperty(0)
-    _MaxLitter = NumericProperty(50)
-    
-    def __init__(self, **kwargs):
-        super(TheLitterBoxWidget, self).__init__(**kwargs)
-        #self.UpdateText()
-        
-    def PerformPoo(self, inCat):
-        # Add poo to us
-        catLitterValue = 10#inCat.LitterBox
-        print ("litter value", catLitterValue)
-        self._LitterCount += catLitterValue
-        print ("litter count", self._LitterCount)
-        #self.UpdateText()
-        
-        # Update the graphix
-    def IsFull(self):
-        return (self._LitterCount >= self._MaxLitter)
-        
-    def UpdateText(self):
-        self.DisplayLitter = ("%d/%d" % (self._LitterCount, self._MaxLitter))
-        
-'''
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-MAIN
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-'''
-if __name__ in ('__main__', '__android__'):
-    TapCatApp().run()
