@@ -4,8 +4,9 @@ Created on May 12, 2013
 @author: MintyAnt
 '''
 
-from kivy.vector import Vector
 import random
+from kivy.vector import Vector
+from . import poo
 
 ''' ############################################################# '''
 class StateMachine():
@@ -72,12 +73,12 @@ class StateCatWander():
             self._Target = Vector(random.randrange(0, 500), random.randrange(0, 500))
             
         # While we wander, check the stats
-        if (inCat.LitterBox >= 25):
+        if (inCat.mLitterBox >= 25):
             # time 2 poo
             inCat.mStateMachine.SetState(StateCatPoopSearch())
-        elif (inCat.Energy <= 10):
+        elif (inCat.mEnergy <= 10):
             # Sleep
-            inCat.mStateMachine.SetState(StateCatTired())
+            inCat.mStateMachine.SetState(StateCatSleep())
     
     def Exit(self, inCat):
         pass
@@ -118,9 +119,14 @@ class StateCatPoopSearch():
             if (litterBox.IsFull()):
                 # Poo wherever we are!
                 inCat.mStateMachine.SetState(StateCatPerformPoop())
+                return
             
             # Otherwise, let's go to the litterbox
             self._LitterBoxLocation = Vector(litterBox.x, litterBox.y)
+            return
+        
+        # Poo wherever we are!
+        inCat.mStateMachine.SetState(StateCatPerformPoop())
             
     def Execute(self, inCat, dt):
         # Walk to the box until we are close enough
@@ -156,10 +162,15 @@ class StateCatPerformPoop():
             print ('im here')
         else:
             # Poo Right Here
-            pass
+            from core import engine
+            map = engine.GetInstance().mGame.mMap
+            newPoo = poo.PooWidget()
+            newPoo.pos = inCat.pos
+            map.mMapEntities.append(newPoo) 
+            map.mMapRootElement.add_widget(newPoo)
         
         # Reset poo
-        inCat.LitterBox = 0
+        inCat.mLitterBox = 0
         
         # Go back to wander
         inCat.mStateMachine.SetState(StateCatWander())
@@ -172,16 +183,16 @@ class StateCatPerformPoop():
     
     
 ''' ############################################################# '''
-class StateCatTired():
-    _EnergyMax = 40
+class StateCatSleep():
+    _EnergyMax = 20
     _SleepPulse = 0
-    _SleepPulseTime = 100
+    _SleepPulseTime = 1
     
     def Enter(self, inCat):
         # Am I tired?
         from core import engine
-        energy = inCat.Energy
-        if (energy >= 0):
+        energy = inCat.mEnergy
+        if (energy >= self._EnergyMax):
             # I'm not tired, go back to the other state.
             inCat.mStateMachine.RevertToPreviousState()
             self._SleepPulse = self._SleepPulseTime
@@ -192,8 +203,8 @@ class StateCatTired():
         if (self._SleepPulse <= 0):
             self._SleepPulse = self._SleepPulseTime
             
-            inCat.Energy += 1
-            if (inCat.Energy >= self._EnergyMax):
+            inCat.mEnergy += 1
+            if (inCat.mEnergy >= self._EnergyMax):
                 inCat.mStateMachine.SetState(StateCatWander())            
     
     def Exit(self, inCat):

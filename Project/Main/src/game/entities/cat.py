@@ -11,9 +11,10 @@ from kivy.uix.widget import Widget
 from kivy.properties import StringProperty, NumericProperty, ObjectProperty
 from kivy.vector import Vector
 from . import statemachine
+from core.graphic.animation_controller import AnimationController
+from core.graphic.animation_graphic import AnimationGraphic
 
 Builder.load_file('game/entities/Cat.kv')
-
 
 class CatWidget(Widget):
     mbIsExpired = False
@@ -26,12 +27,13 @@ class CatWidget(Widget):
     # Cat Gui Stuff
     cat_label = StringProperty("")
     cat_talk_label = StringProperty("")
+    cat_state_label = StringProperty()
     
     # Cat Levels
-    Hapiness = NumericProperty(25)
-    Energy = NumericProperty(40)
-    Hygine = NumericProperty(30)
-    LitterBox = NumericProperty(24)
+    mHapiness = NumericProperty(25)
+    mEnergy = NumericProperty(5)
+    mHygine = NumericProperty(30)
+    mLitterBox = NumericProperty(24)
     
     _HapinessPulse = 0
     _EnergyPulse = 0
@@ -55,8 +57,12 @@ class CatWidget(Widget):
         self.mStateMachine = statemachine.StateMachine(self)
         self.mStateMachine.SetState(statemachine.StateCatWander())
         self._CatPettingCounter = 0
+        
+        self.cat_state_label = str(self.mStateMachine.mCurrentState)
     
     def Update(self, dt):
+        self.cat_state_label = str(self.mStateMachine.mCurrentState)
+        
         # States
         self.mStateMachine.Update(dt)
         
@@ -70,15 +76,15 @@ class CatWidget(Widget):
         self._LitterboxPulse -= dt
         
         if (self._LitterboxPulse <= 0):
-            self.LitterBox += 2
+            self.mLitterBox += 2
             self._LitterboxPulse = 12
             
         if (self._EnergyPulse <= 0):
-            self.Energy -= 1
+            self.mEnergy -= 1
             self._EnergyPulse = 9
             
         if (self._HyginePulse <= 0):
-            self.Hygine -= 1
+            self.mHygine -= 1
             self._HyginePulse = 6
         
         if (self._LabelPulse <= 0):
@@ -93,7 +99,7 @@ class CatWidget(Widget):
             self.cat_talk_label = ""
         
         if (self._HapinessPulse <= 0):
-            self.Hapiness -= 1
+            self.mHapiness -= 1
             self._HapinessPulse = 5.25
         
     def on_touch_down(self, touch):
@@ -104,9 +110,9 @@ class CatWidget(Widget):
             if (self._CatPettingCounter >= 7):
                 # Perform pet
                 self._CatPettingCounter = 0
-                self.cat_label = "Hapiness+"
+                self.cat_label = "mHapiness+"
                 self._LabelPulse = .5
-                self.Hapiness += 1
+                self.mHapiness += 1
             
     def on_touch_move(self, touch):
         if (self._MarkedMoveDirection == None):
@@ -127,9 +133,9 @@ class CatWidget(Widget):
             if (self._CatPettingCounter >= 7):
                 # Perform pet
                 self._CatPettingCounter = 0
-                self.cat_label = "Hapiness+"
+                self.cat_label = "mHapiness+"
                 self._LabelPulse = .5
-                self.Hapiness += 1
-    
+                self.mHapiness += 1
+                
     def on_touch_up(self, touch):
         self._MarkedMoveDirection = None

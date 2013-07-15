@@ -14,7 +14,7 @@ from kivy.clock import Clock
 Builder.load_file('game/map/TapMap.kv')
 
 class Map(Widget):
-    _MapRootElement = None
+    mMapRootElement = None
     mCat = ObjectProperty()
     mLitterBox = ObjectProperty()
     mMapEntities = []
@@ -24,10 +24,11 @@ class Map(Widget):
         Clock.schedule_interval(self.Update, 1.0 / 60.0)
     
     def Initialize(self):
-        self._MapRootElement = self
+        self.mMapRootElement = self
     
     def Update(self, dt):
         for currentEntity in self.mMapEntities:
             if (currentEntity.mbIsExpired):
                 # Destroy
                 self.mMapEntities.remove(currentEntity)
+                self.mMapRootElement.remove_widget(currentEntity)
