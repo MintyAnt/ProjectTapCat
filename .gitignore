@@ -1,4 +1,2 @@
-# Compiled resources #
-######################
-.pyc
-.pyo
+*.pyc
+*.pyo
