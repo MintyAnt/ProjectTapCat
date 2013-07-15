@@ -7,10 +7,10 @@ Created on Jul 14, 2013
 from ..action import Action
 
 class ActionCatEat(Action):
-    def IsDone(self):
+    def IsDone(self, inCat):
         pass
     
-    def GetUtility(self):
+    def GetUtility(self, inCat):
         return 0
     
     def Enter(self, inCat):

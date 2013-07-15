@@ -24,12 +24,12 @@ def BuildAction(inActionName):
     return None
     
 class Action():
-    def IsDone(self):
+    def IsDone(self, inEntity):
         pass
     
-    def GetUtility(self):
+    def GetUtility(self, inEntity):
         pass
-		
+    
     def Enter(self, inEntity):
         pass
     

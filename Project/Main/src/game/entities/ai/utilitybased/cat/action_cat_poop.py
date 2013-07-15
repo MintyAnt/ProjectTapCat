@@ -12,10 +12,10 @@ class ActionCatPoop(Action):
     _LitterBoxLocation = Vector(0, 0)
     _bComplete = False
     
-    def IsDone(self):
+    def IsDone(self, inCat):
         pass
     
-    def GetUtility(self):
+    def GetUtility(self, inCat):
         pass
     
     def Enter(self, inCat):
