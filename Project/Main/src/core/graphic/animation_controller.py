@@ -52,7 +52,7 @@ class AnimationController(Widget):
             self._CurrentAnimation.Start()
             self._CurrentImage.texture = self._CurrentAnimation.mCurrentTextureArea
             print ("Current image: ", self._CurrentImage)
-            
+
     def Initialize(self):
         self._CurrentImage = Image(pos=self.parent.pos)
         self.bind(pos=self._CurrentImage.setter('pos'))
@@ -60,7 +60,7 @@ class AnimationController(Widget):
         
         self.PlayAnimationByName(self.mStartingAnimation)
         self._bInitialized = True
-    
+
     def Update(self, dt):
         if (not self._bInitialized):
             self.Initialize()

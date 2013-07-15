@@ -25,3 +25,6 @@ class Game(Widget):
     def Initialize(self):
         self._GameRootElement = self
         self.mMap.Initialize()
+        
+    def Update(self, dt):
+        self.mMap.Update(dt)

@@ -11,6 +11,12 @@ from ..action import Action
 class ActionCatWander(Action):
     _Target = Vector(0,0)
     
+    def IsDone(self):
+        pass
+    
+    def GetUtility(self):
+        return .3
+    
     def Enter(self, inCat):
         self._Target = Vector(random.randrange(0, 500), random.randrange(0, 500))
     
@@ -21,8 +27,8 @@ class ActionCatWander(Action):
         vectorToTarget = self._Target - myPos
         distanceToTarget = vectorToTarget.length()
         normalizedVectorToTarget = vectorToTarget.normalize()
-        if (distanceToTarget > inCat.Speed):
-            normalizedVectorToTarget *= inCat.Speed
+        if (distanceToTarget > inCat.mSpeed):
+            normalizedVectorToTarget *= inCat.mSpeed
         else:
             normalizedVectorToTarget *= distanceToTarget
             

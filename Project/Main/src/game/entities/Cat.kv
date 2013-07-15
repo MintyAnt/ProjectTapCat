@@ -1,4 +1,6 @@
 <CatWidget>:
+	mUtilityBasedAI: mUtilityBasedAI
+	
     pos: 100, 400
     size: 75, 75
     mEnergy: 10
@@ -25,7 +27,7 @@
     	mStartingAnimation: "flying"
     	AnimationGraphic:
     		mID: "flying"
-    		mSpriteStrip: "shipAnimation.png"
+    		mSpriteStripSource: "shipAnimation.png"
     		mNumFrames: 8
     		mFrameDimensions: 115, 69
     		mAnimateSpeed: .030
@@ -36,3 +38,8 @@
         #size: (root.width * 1.35, root.height * 1.35)
         #keep_ratio: True
         #allow_stretch: True
+        
+    UtilityBasedAI:
+    	id: mUtilityBasedAI
+    	mDefaultAction: "cat_wander"
+    	mActions: "cat_wander", "cat_poop", "cat_sleep", "cat_eat"

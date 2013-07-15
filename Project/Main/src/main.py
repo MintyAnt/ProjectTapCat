@@ -10,7 +10,7 @@ from core import engine
 class TapCatApp(App):
     def build(self):
         tapEngine = engine.GetInstance()
-        rootElement = tapEngine.Initialize()
+        rootElement = tapEngine.GetRoot()
         return rootElement
 
 if __name__ == '__main__':

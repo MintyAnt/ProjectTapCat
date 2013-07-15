@@ -10,21 +10,31 @@ from kivy.properties import StringProperty, NumericProperty, ObjectProperty
 from ..entities.cat import CatWidget
 from ..entities.litterbox import LitterBoxWidget
 from kivy.clock import Clock
+from functools import partial
+from ..entities.entity import Entity
 
 Builder.load_file('game/map/TapMap.kv')
 
 class Map(Widget):
     mMapRootElement = None
-    mCat = ObjectProperty()
-    mLitterBox = ObjectProperty()
+    #mCat = ObjectProperty()
+    #mLitterBox = ObjectProperty()
     mMapEntities = []
     
     def __init__(self, **kwargs):
         super(Map, self).__init__(**kwargs)
-        Clock.schedule_interval(self.Update, 1.0 / 60.0)
     
+    def add_widget(self, widget):
+        print ("Adding Widget", widget)
+        if isinstance(widget, Entity):
+            self.mMapEntities.append(widget)
+        super(Map, self).add_widget(widget)
+        
     def Initialize(self):
+        print ("initing map")
         self.mMapRootElement = self
+        for currentEntity in self.mMapEntities:
+            currentEntity.Initialize()
     
     def Update(self, dt):
         for currentEntity in self.mMapEntities:
@@ -32,3 +42,5 @@ class Map(Widget):
                 # Destroy
                 self.mMapEntities.remove(currentEntity)
                 self.mMapRootElement.remove_widget(currentEntity)
+            else:
+                currentEntity.Update(dt)

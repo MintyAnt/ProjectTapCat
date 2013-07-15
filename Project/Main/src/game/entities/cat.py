@@ -7,22 +7,19 @@ Created on Jun 18, 2013
 import random
 from kivy.clock import Clock
 from kivy.lang import Builder
-from kivy.uix.widget import Widget
 from kivy.properties import StringProperty, NumericProperty, ObjectProperty
 from kivy.vector import Vector
-from . import statemachine
 from core.graphic.animation_controller import AnimationController
 from core.graphic.animation_graphic import AnimationGraphic
+from .ai.utilitybased.utility_based_ai import UtilityBasedAI
+from .entity import Entity
 
 Builder.load_file('game/entities/Cat.kv')
 
-class CatWidget(Widget):
-    mbIsExpired = False
-    mStateMachine = None
-    
+class CatWidget(Entity):
     # Exposed Values #
     # Cat Values
-    Speed = NumericProperty(1.0)
+    mSpeed = NumericProperty(1.0)
     
     # Cat Gui Stuff
     cat_label = StringProperty("")
@@ -53,18 +50,18 @@ class CatWidget(Widget):
     def __init__(self, **kwargs):
         super(CatWidget, self).__init__(**kwargs)
         Clock.schedule_interval(self.Update, 1.0 / 60.0)
-        
-        self.mStateMachine = statemachine.StateMachine(self)
-        self.mStateMachine.SetState(statemachine.StateCatWander())
         self._CatPettingCounter = 0
         
-        self.cat_state_label = str(self.mStateMachine.mCurrentState)
+    def Initialize(self):
+        super(CatWidget, self).Initialize()
+        #self.cat_state_label = str(self.mStateMachine.mCurrentState)
+        #self.cat_state_label = str(self.mUtilityBasedAI.mCurrentAction)
     
     def Update(self, dt):
-        self.cat_state_label = str(self.mStateMachine.mCurrentState)
+        super(CatWidget, self).Update(dt)
         
-        # States
-        self.mStateMachine.Update(dt)
+        #self.cat_state_label = str(self.mStateMachine.mCurrentState)
+        self.cat_state_label = str(self.mUtilityBasedAI.mCurrentAction)
         
         # Pulse crap
         self._LabelPulse -= dt

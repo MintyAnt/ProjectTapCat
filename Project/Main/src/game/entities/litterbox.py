@@ -4,18 +4,17 @@ Created on Jun 18, 2013
 @author: MintyAnt
 '''
 
-from kivy.uix.widget import Widget
 from kivy.properties import StringProperty, NumericProperty, ObjectProperty
 from kivy.clock import Clock
 from kivy.vector import Vector
 from kivy.lang import Builder
 from . import poo
 import random
+from .entity import Entity
 
 Builder.load_file('game/entities/LitterBox.kv')
 
-class LitterBoxWidget(Widget):
-    mbIsExpired = False
+class LitterBoxWidget(Entity):
     #DisplayLitter = StringProperty("0/0")
     _LitterCount = NumericProperty(40)
     _MaxLitter = NumericProperty(50)

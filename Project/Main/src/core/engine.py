@@ -5,6 +5,7 @@ Created on Jun 16, 2013
 '''
 
 from game.game import Game
+from kivy.clock import Clock
 
 gEngineInstance = None
 
@@ -16,14 +17,20 @@ def GetInstance():
 
 class Engine():
     mGame = None
+    _bInitialized = False
     
     def __init__(self):
-        pass
+        Clock.schedule_interval(self.Update, 1.0 / 60.0)
+        self.mGame = Game()
+    
+    def GetRoot(self):
+        return self.mGame
     
     def Initialize(self):
-        self.mGame = Game()
-        
         self.mGame.Initialize()
-        tapRoot = self.mGame
+        self._bInitialized = True
         
-        return tapRoot
+    def Update(self, dt):
+        if (not self._bInitialized):
+            self.Initialize()
+        self.mGame.Update(dt)

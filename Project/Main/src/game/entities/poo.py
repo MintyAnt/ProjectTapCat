@@ -4,14 +4,13 @@ Created on Jun 26, 2013
 @author: MintyAnt
 '''
 
-from kivy.uix.widget import Widget
 from kivy.clock import Clock
 from kivy.lang import Builder
+from .entity import Entity
 
 Builder.load_file('game/entities/Poo.kv')
 
-class PooWidget(Widget):
-    mbIsExpired = False
+class PooWidget(Entity):
     _LifeTime = 5
     
     def __init__(self, **kwargs):

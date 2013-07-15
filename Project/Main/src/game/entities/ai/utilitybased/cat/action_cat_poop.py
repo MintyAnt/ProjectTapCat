@@ -10,6 +10,7 @@ from kivy.vector import Vector
 
 class ActionCatPoop(Action):
     _LitterBoxLocation = Vector(0, 0)
+    _bComplete = False
     
     def IsDone(self):
         pass
@@ -18,6 +19,8 @@ class ActionCatPoop(Action):
         pass
     
     def Enter(self, inCat):
+        self._bComplete = False
+        
         # Is there a litterbox nearby?
         from core import engine
         litterBox = engine.GetInstance().mGame.mMap.mLitterBox
@@ -43,8 +46,8 @@ class ActionCatPoop(Action):
         vectorToTarget = self._LitterBoxLocation - myPos
         distanceToTarget = vectorToTarget.length()
         normalizedVectorToTarget = vectorToTarget.normalize()
-        if (distanceToTarget > inCat.Speed):
-            normalizedVectorToTarget *= inCat.Speed
+        if (distanceToTarget > inCat.mSpeed):
+            normalizedVectorToTarget *= inCat.mSpeed
         else:
             normalizedVectorToTarget *= distanceToTarget
             
@@ -79,5 +82,5 @@ class ActionCatPoop(Action):
         # Reset poo
         inCat.mLitterBox = 0
         
-        # Go back to wander
-        inCat.mStateMachine.SetState(StateCatWander())
+        # We are finished
+        self._bComplete = True
