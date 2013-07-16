@@ -49,7 +49,6 @@ class CatWidget(Entity):
     
     def __init__(self, **kwargs):
         super(CatWidget, self).__init__(**kwargs)
-        Clock.schedule_interval(self.Update, 1.0 / 60.0)
         self._CatPettingCounter = 0
         
     def Initialize(self):

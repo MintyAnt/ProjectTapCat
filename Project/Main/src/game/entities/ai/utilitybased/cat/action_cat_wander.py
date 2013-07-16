@@ -11,10 +11,10 @@ from ..action import Action
 class ActionCatWander(Action):
     _Target = Vector(0,0)
     
-    def IsDone(self):
-        pass
+    def IsDone(self, inCat):
+        return True
     
-    def GetUtility(self):
+    def GetUtility(self, inCat):
         return .3
     
     def Enter(self, inCat):

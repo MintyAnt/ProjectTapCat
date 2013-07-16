@@ -15,7 +15,7 @@ class UtilityBasedAI(Widget):
     mCurrentAction = None
     _Actions = []
     _DefaultAction = None
-    _mOwner = None
+    _Owner = None
     
     def __init__(self, **kwargs):
         super(UtilityBasedAI, self).__init__(**kwargs)
@@ -35,33 +35,33 @@ class UtilityBasedAI(Widget):
                 self._Actions.append(newAction)
                 
         # Hope this works!
-        self._mOwner = self.parent
+        self._Owner = self.parent
     
     def Update(self, dt):
         bIsCurrentActionDone = True
         if (self.mCurrentAction != None):
-            self.mCurrentAction.Update(self._mOwner, dt)
-            bIsCurrentActionDone = self.mCurrentAction.IsDone()
+            self.mCurrentAction.Update(self._Owner, dt)
+            bIsCurrentActionDone = self.mCurrentAction.IsDone(self._Owner)
         
         if (bIsCurrentActionDone):
             # Determine next action.
-            self.CalculateAndSwitchToNextAction()
+            self.CalculateAndTrySwitchToNextAction()
         
-    def CalculateAndSwitchToNextAction(self):
+    def CalculateAndTrySwitchToNextAction(self):
         highestAction = self._DefaultAction
-        highestActionUtility = self._DefaultAction.GetUtility()
+        highestActionUtility = self._DefaultAction.GetUtility(self._Owner)
         
         #Iterate through all actions. Calculate highest
         for currentAction in self._Actions:
             
-            currentWeight = currentAction.GetUtility()
+            currentWeight = currentAction.GetUtility(self._Owner)
             if (currentWeight >= highestActionUtility):
                 highestAction = currentAction
-                highestActionUtility = currentAction.GetUtility()
+                highestActionUtility = currentWeight
         
         if (highestActionUtility != self.mCurrentAction):
             # Switch to this action.
-            self.mCurrentAction.Exit()
+            self.mCurrentAction.Exit(self._Owner)
             self.mCurrentAction = highestAction
-            self.mCurrentAction.Enter()
+            self.mCurrentAction.Enter(self._Owner)
             

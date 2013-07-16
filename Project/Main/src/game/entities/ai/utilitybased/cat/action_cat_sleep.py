@@ -7,17 +7,40 @@ Created on Jul 14, 2013
 from ..action import Action
 
 class ActionCatSleep(Action):
-    def IsDone(self):
-        pass
+    _bIsDone = False
     
-    def GetUtility(self):
-        pass
+    _EnergyMax = 20.0
+    _SleepPulse = 0
+    _SleepPulseTime = 1
+    
+    def IsDone(self, inCat):
+        doneValue = inCat.mEnergy > (self._EnergyMax / 2.0)
+        return doneValue
+    
+    def GetUtility(self, inCat):
+        returnValue = ((inCat.mEnergy / self._EnergyMax) - 1.0) * -1.0
+        print (returnValue)
+        return returnValue
     
     def Enter(self, inCat):
-        pass
+        self._bIsDone = False
+        
+        # Am I tired?
+        from core import engine
+        energy = inCat.mEnergy
+        if (energy >= self._EnergyMax):
+            # I'm not tired, go back to the other state.
+            inCat.mStateMachine.RevertToPreviousState()
+            self._SleepPulse = self._SleepPulseTime
     
-    def Execute(self, inCat, dt):
-        pass
+    def Update(self, inCat, dt):
+        self._SleepPulse -= dt
+        if (self._SleepPulse <= 0):
+            self._SleepPulse = self._SleepPulseTime
+            
+            inCat.mEnergy += 1
+            if (inCat.mEnergy >= self._EnergyMax):
+                self._bIsDone = False
     
     def Exit(self, inCat):
         pass
