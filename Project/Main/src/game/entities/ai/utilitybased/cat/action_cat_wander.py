@@ -15,7 +15,9 @@ class ActionCatWander(Action):
         return True
     
     def GetUtility(self, inCat):
-        return .3
+        returnUtility = .2
+        print ("Wander", returnUtility)
+        return returnUtility
     
     def Enter(self, inCat):
         self._Target = Vector(random.randrange(0, 500), random.randrange(0, 500))
@@ -41,3 +43,6 @@ class ActionCatWander(Action):
     
     def Exit(self, inCat):
         pass
+        
+    def __repr__(self):
+        return "action_cat_wander"

@@ -1,6 +1,7 @@
 <Map>:        
 	mCat: the_cat
 	mLitterBox: the_litter
+	mFoodBowl: the_food
 	
     canvas:
         Color:
@@ -13,6 +14,10 @@
 		
 	LitterBoxWidget:
 		id: the_litter
+		
+	FoodBowlWidget
+		id: the_food
+		pos: 600, 300
 
 	# Bars
 	Label:
@@ -25,5 +30,5 @@
 		text: "Litterbox: " + str(the_cat.mLitterBox)
 		pos: 10, root.top - 100
 	Label:
-		text: "Litterbox: " + str(the_cat.mHygine)
+		text: "Hygine: " + str(the_cat.mHygine)
 		pos: 10, root.top - 115

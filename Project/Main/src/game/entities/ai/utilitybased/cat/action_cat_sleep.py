@@ -4,6 +4,7 @@ Created on Jul 14, 2013
 @author: MintyAnt
 '''
 
+import math
 from ..action import Action
 
 class ActionCatSleep(Action):
@@ -18,8 +19,11 @@ class ActionCatSleep(Action):
         return doneValue
     
     def GetUtility(self, inCat):
-        returnValue = ((inCat.mEnergy / self._EnergyMax) - 1.0) * -1.0
-        print (returnValue)
+        returnValue = 1.0 - ( (inCat.mEnergy / self._EnergyMax))
+        if (inCat.mUtilityBasedAI.mCurrentAction != self):
+            returnValue = math.pow(returnValue, 2)
+            
+        print ("Sleep ", returnValue)
         return returnValue
     
     def Enter(self, inCat):
@@ -30,7 +34,7 @@ class ActionCatSleep(Action):
         energy = inCat.mEnergy
         if (energy >= self._EnergyMax):
             # I'm not tired, go back to the other state.
-            inCat.mStateMachine.RevertToPreviousState()
+            self._bIsDone = True
             self._SleepPulse = self._SleepPulseTime
     
     def Update(self, inCat, dt):
@@ -43,4 +47,7 @@ class ActionCatSleep(Action):
                 self._bIsDone = False
     
     def Exit(self, inCat):
-        pass
+        self._bIsDone = True
+        
+    def __repr__(self):
+        return "action_cat_sleep"

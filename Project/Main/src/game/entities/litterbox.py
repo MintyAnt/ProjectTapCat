@@ -36,7 +36,9 @@ class LitterBoxWidget(Entity):
         map = engine.GetInstance().mGame.mMap
         newPoo = poo.PooWidget()
         
-        newPoo.pos = random.randrange(self.x, self.right), random.randrange(self.y, self.top)
+        rightMostX = self.right - newPoo.width
+        rightMostY = self.top - newPoo.height
+        newPoo.pos = random.randrange(self.x, rightMostX), random.randrange(self.y, rightMostY)
         
         map.mMapEntities.append(newPoo) 
         map.mMapRootElement.add_widget(newPoo)

@@ -4,14 +4,15 @@ Created on Jun 18, 2013
 @author: MintyAnt
 '''
 
+from ..entities.entity import Entity
+from ..entities.cat import CatWidget
+from ..entities.litterbox import LitterBoxWidget
+from ..entities.food_bowl import FoodBowlWidget
 from kivy.lang import Builder
 from kivy.uix.widget import Widget
 from kivy.properties import StringProperty, NumericProperty, ObjectProperty
-from ..entities.cat import CatWidget
-from ..entities.litterbox import LitterBoxWidget
 from kivy.clock import Clock
 from functools import partial
-from ..entities.entity import Entity
 
 Builder.load_file('game/map/TapMap.kv')
 

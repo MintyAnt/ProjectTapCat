@@ -6,13 +6,13 @@ Created on Jun 18, 2013
 
 import random
 from kivy.clock import Clock
-from kivy.lang import Builder
 from kivy.properties import StringProperty, NumericProperty, ObjectProperty
 from kivy.vector import Vector
 from core.graphic.animation_controller import AnimationController
 from core.graphic.animation_graphic import AnimationGraphic
 from .ai.utilitybased.utility_based_ai import UtilityBasedAI
 from .entity import Entity
+from kivy.lang import Builder
 
 Builder.load_file('game/entities/Cat.kv')
 

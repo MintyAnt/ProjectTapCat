@@ -22,6 +22,14 @@
     	text: ("State: " + root.cat_state_label)
     	pos: (root.center_x, root.center_y + 20)
         
+
+    Image:
+    	source: "tapcat_side.jpg"
+    	pos: root.pos
+        size: (root.width * 1.35, root.height * 1.35)
+        keep_ratio: True
+        allow_stretch: True
+        
     AnimationController:
     	pos: root.pos
     	mStartingAnimation: "flying"
@@ -31,13 +39,6 @@
     		mNumFrames: 8
     		mFrameDimensions: 115, 69
     		mAnimateSpeed: .030
- 
-    #Image:
-    	#source: "Cat.png"
-    	#pos: (root.x - 10, root.y - 10)
-        #size: (root.width * 1.35, root.height * 1.35)
-        #keep_ratio: True
-        #allow_stretch: True
         
     UtilityBasedAI:
     	id: mUtilityBasedAI

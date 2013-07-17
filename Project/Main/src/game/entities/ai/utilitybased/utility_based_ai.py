@@ -59,7 +59,8 @@ class UtilityBasedAI(Widget):
                 highestAction = currentAction
                 highestActionUtility = currentWeight
         
-        if (highestActionUtility != self.mCurrentAction):
+        if (highestAction != self.mCurrentAction):
+            print ("Switching from " , self.mCurrentAction , " to " , highestActionUtility)
             # Switch to this action.
             self.mCurrentAction.Exit(self._Owner)
             self.mCurrentAction = highestAction

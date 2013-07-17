@@ -7,16 +7,22 @@ Created on Jul 14, 2013
 from ..action import Action
 from game.entities.poo import PooWidget
 from kivy.vector import Vector
+import math
 
 class ActionCatPoop(Action):
     _LitterBoxLocation = Vector(0, 0)
     _bComplete = False
+    _PoopMax = 50.0
     
     def IsDone(self, inCat):
-        pass
+        return self._bComplete
     
     def GetUtility(self, inCat):
-        pass
+        utilityValue = (inCat.mLitterBox / self._PoopMax)
+        utilityValue = math.pow(utilityValue, 2)
+        
+        print ("Litter ", utilityValue)
+        return utilityValue
     
     def Enter(self, inCat):
         self._bComplete = False
@@ -84,3 +90,6 @@ class ActionCatPoop(Action):
         
         # We are finished
         self._bComplete = True
+        
+    def __repr__(self):
+        return "action_cat_poo"
