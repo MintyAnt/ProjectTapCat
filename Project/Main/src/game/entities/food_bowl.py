@@ -11,7 +11,7 @@ from kivy.lang import Builder
 Builder.load_file('game/entities/FoodBowl.kv')
 
 class FoodBowlWidget(Entity):
-    mFoodValue = NumericProperty(0)
+    mFoodValue = NumericProperty(10)
     
     def GetFood(self):
         return self.mFoodValue
@@ -20,4 +20,4 @@ class FoodBowlWidget(Entity):
         self.mFoodValue += inFoodModification
     
     def IsThereFoodInBowl(self):
-        return self.mFoodValue > 0
+        return (self.mFoodValue > 0)

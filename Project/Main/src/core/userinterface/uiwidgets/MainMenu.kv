@@ -1,0 +1,34 @@
+<MainMenu>:
+	menuProfile: menu_profile
+	AnchorLayout:
+		anchor_x: 'left'
+		anchor_y: 'bottom'
+		size: root.size
+	
+		StackLayout:
+			orientation: 'tb-lr'
+			size_hint: .5, .9
+		
+			Button:
+				text: "Start"
+				size_hint: 1, .2
+				on_touch_down: menu_profile.on_activation(root.pos)
+				
+			Button:
+				text: "Options"
+				size_hint: 1, .2
+			Button:
+				text: "About"
+				size_hint: 1, .2
+			Button:
+				text: "Exit"
+				size_hint: 1, .2
+				
+	AnchorLayout:
+		anchor_x: 'right'
+		anchor_y: 'bottom'
+		size: root.size
+		
+		MenuProfileWidget:
+			id: menu_profile
+			size_hint: .5, .9

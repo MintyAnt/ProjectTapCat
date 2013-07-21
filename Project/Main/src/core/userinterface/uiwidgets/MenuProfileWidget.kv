@@ -1,0 +1,20 @@
+#: import Animation kivy.animation.Animation
+
+<MenuProfileWidget>:
+	orientation: 'tb-rl'
+	
+	#anim_start: Animation(pos = (0, root.height / 2.0), duration = 1)
+	#anim_end: Animation(pos = (root.right, root.height / 2.0), duration = 0)
+	#anim_open: anim_start + anim_end
+	anim_open: Animation(pos = (0, self.y), duration = 0.5) + Animation(pos = (root.parent.right - root.width, self.y), duration = 0.5)
+		
+	Button:
+		text: "Profile 1"
+		size_hint: 1, .2
+	Button:
+		text: "Profile 2"
+		size_hint: 1, .2
+	Button:
+		text: "Profile 3"
+		size_hint: 1, .2
+		

@@ -9,17 +9,15 @@ from ..action import Action
 
 class ActionCatSleep(Action):
     _bIsDone = False
-    
-    _EnergyMax = 20.0
     _SleepPulse = 0
     _SleepPulseTime = 1
     
     def IsDone(self, inCat):
-        doneValue = inCat.mEnergy > (self._EnergyMax / 2.0)
+        doneValue = inCat.mEnergy > (inCat.mEnergyMax / 2.0)
         return doneValue
     
     def GetUtility(self, inCat):
-        returnValue = 1.0 - ( (inCat.mEnergy / self._EnergyMax))
+        returnValue = 1.0 - ( (inCat.mEnergy / inCat.mEnergyMax))
         if (inCat.mUtilityBasedAI.mCurrentAction != self):
             returnValue = math.pow(returnValue, 2)
             
@@ -32,7 +30,7 @@ class ActionCatSleep(Action):
         # Am I tired?
         from core import engine
         energy = inCat.mEnergy
-        if (energy >= self._EnergyMax):
+        if (energy >= inCat.mEnergyMax):
             # I'm not tired, go back to the other state.
             self._bIsDone = True
             self._SleepPulse = self._SleepPulseTime
@@ -43,7 +41,7 @@ class ActionCatSleep(Action):
             self._SleepPulse = self._SleepPulseTime
             
             inCat.mEnergy += 1
-            if (inCat.mEnergy >= self._EnergyMax):
+            if (inCat.mEnergy >= inCat.mEnergyMax):
                 self._bIsDone = False
     
     def Exit(self, inCat):

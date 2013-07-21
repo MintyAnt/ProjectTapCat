@@ -31,11 +31,19 @@ class CatWidget(Entity):
     mEnergy = NumericProperty(5)
     mHygine = NumericProperty(30)
     mLitterBox = NumericProperty(24)
+    mHunger = NumericProperty(10)
+    
+    mEnergyMax = NumericProperty(20.0)
+    mHapinessMax = NumericProperty(50.0)
+    mLitterBoxMax = NumericProperty(50.0)
+    mHygineMax = NumericProperty(25.0)
+    mHungerMax = NumericProperty(40.0)
     
     _HapinessPulse = 0
     _EnergyPulse = 0
     _HyginePulse = 0
     _LitterboxPulse = 0
+    _HungerPulse = 0
     
     _LabelPulse = 0
     _CatTalkPulse = 0
@@ -97,6 +105,10 @@ class CatWidget(Entity):
         if (self._HapinessPulse <= 0):
             self.mHapiness -= 1
             self._HapinessPulse = 5.25
+            
+        if (self._HungerPulse <= 0):
+            self.mHunger -= 1
+            self._HungerPulse = 7.5
         
     def on_touch_down(self, touch):
         if (self.collide_point(touch.x, touch.y)):
