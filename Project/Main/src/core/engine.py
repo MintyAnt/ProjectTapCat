@@ -9,28 +9,30 @@ from kivy.clock import Clock
 
 gEngineInstance = None
 
+def CreateInstance():
+    global gEngineInstance
+    gEngineInstance = Engine()
+    
 def GetInstance():
     global gEngineInstance
+    assert gEngineInstance != None, "Engine should be created with CreateInstance, otherwise loading will screw up"
     if (gEngineInstance == None):
         gEngineInstance = Engine()
     return gEngineInstance
 
 class Engine():
     mGame = None
-    _bInitialized = False
     
     def __init__(self):
-        Clock.schedule_interval(self.Update, 1.0 / 60.0)
-        self.mGame = Game()
+        pass
     
     def GetRoot(self):
+        self.mGame = Game()
         return self.mGame
     
-    def Initialize(self):
+    def Initialize(self, dt):
         self.mGame.Initialize()
-        self._bInitialized = True
+        Clock.schedule_interval(self.Update, 1.0 / 60.0)
         
     def Update(self, dt):
-        if (not self._bInitialized):
-            self.Initialize()
         self.mGame.Update(dt)

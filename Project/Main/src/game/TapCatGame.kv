@@ -1,7 +1,13 @@
-
-<Game>:        
+<Game>:
 	mMap: map
+	mUserInterface: ui
 	
 	Map:
 		id: map
+		size_hint: 1, .8
+		pos_hint: {'top': 1}
+		
+	UserInterfaceManager:
+		id: ui
 		size: root.size
+		mMap: map

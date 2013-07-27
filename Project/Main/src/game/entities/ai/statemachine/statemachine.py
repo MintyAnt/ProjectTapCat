@@ -17,7 +17,7 @@ class StateMachine():
     def __init__(self, inOwner):
         self._Owner = inOwner
         
-    def Initialize(self):
+    def Initialize(self, inOwner):
         pass
     
     def Update(self, dt):

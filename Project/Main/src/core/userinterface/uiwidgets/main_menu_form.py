@@ -10,8 +10,8 @@ from kivy.uix.relativelayout import RelativeLayout
 from menu_profile_widget import MenuProfileWidget
 from kivy.properties import StringProperty, NumericProperty, ObjectProperty
 
-#Builder.load_file('core/userinterface/uiwidgets/MainMenu.kv')
-Builder.load_file('uiwidgets/MainMenu.kv')
+Builder.load_file('core/userinterface/uiwidgets/MainMenuForm.kv')
+#Builder.load_file('uiwidgets/MainMenuForm.kv')
 
-class MainMenu(RelativeLayout):
+class MainMenuForm(RelativeLayout):
     pass

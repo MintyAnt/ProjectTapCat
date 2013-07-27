@@ -8,8 +8,8 @@ from kivy.uix.stacklayout import StackLayout
 from kivy.lang import Builder
 from kivy.animation import Animation
 
-#Builder.load_file('core/userinterface/uiwidgets/MenuProfileWidget.kv')
-Builder.load_file('uiwidgets/MenuProfileWidget.kv')
+Builder.load_file('core/userinterface/uiwidgets/MenuProfileWidget.kv')
+#Builder.load_file('uiwidgets/MenuProfileWidget.kv')
 
 
 class MenuProfileWidget(StackLayout):

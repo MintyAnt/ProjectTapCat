@@ -20,7 +20,7 @@ class UtilityBasedAI(Widget):
     def __init__(self, **kwargs):
         super(UtilityBasedAI, self).__init__(**kwargs)
     
-    def Initialize(self):
+    def Initialize(self, inOwner):
         print ("Initializing Utility")
         
         print ("Default Action: ", self.mDefaultAction)
@@ -35,7 +35,7 @@ class UtilityBasedAI(Widget):
                 self._Actions.append(newAction)
                 
         # Hope this works!
-        self._Owner = self.parent
+        self._Owner = inOwner
     
     def Update(self, dt):
         bIsCurrentActionDone = True

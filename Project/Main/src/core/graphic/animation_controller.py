@@ -19,29 +19,24 @@ class AnimationController(Widget):
     mAnimations = {}
     
     _CurrentAnimation = None
-    _bInitialized = False
     
     def __init__(self, **kwargs):
         super(AnimationController, self).__init__(**kwargs)
-        Clock.schedule_interval(self.Update, 1.0 / 60.0)
         
     def add_widget(self, widget):
-        if isinstance(widget, AnimationGraphic):
-            Clock.schedule_once(partial(self.InitializeAnimation, widget))
-        print ("Widget: ", widget)
         super(AnimationController, self).add_widget(widget)
         
-    def InitializeAnimation(self, inAnimationWidget, dt):
+    def InitializeAnimation(self, inAnimationWidget):
         animationID = inAnimationWidget.mID
         print (animationID)
         assert not animationID in self.mAnimations
         if (not animationID in self.mAnimations):
-            #inAnimationWidget.pos = self.pos
+            print ("Initializing Animation %s" % animationID)
             inAnimationWidget.Initialize()
             self.mAnimations[animationID] = inAnimationWidget
     
     def PlayAnimationByName(self, inAnimationName):
-        assert inAnimationName in self.mAnimations
+        assert inAnimationName in self.mAnimations, "No animation named " + inAnimationName
         if (inAnimationName in self.mAnimations):
             if (self._CurrentAnimation != None):
                 self._CurrentAnimation.Stop()
@@ -53,18 +48,19 @@ class AnimationController(Widget):
             self._CurrentImage.texture = self._CurrentAnimation.mCurrentTextureArea
             print ("Current image: ", self._CurrentImage)
 
-    def Initialize(self):
-        self._CurrentImage = Image(pos=self.parent.pos)
+    def Initialize(self, inOwner):
+        for currentChild in self.children:
+            if isinstance(currentChild, AnimationGraphic):
+                print ("Scheduling animaton add")
+                self.InitializeAnimation(currentChild)
+        
+        self._CurrentImage = Image(pos=inOwner.pos)
         self.bind(pos=self._CurrentImage.setter('pos'))
         self.add_widget(self._CurrentImage)
         
         self.PlayAnimationByName(self.mStartingAnimation)
-        self._bInitialized = True
 
     def Update(self, dt):
-        if (not self._bInitialized):
-            self.Initialize()
-        
         if (self._CurrentAnimation != None):
             self._CurrentAnimation.Update(dt)
             

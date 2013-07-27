@@ -13,12 +13,19 @@ class Entity(Widget):
     
     mbIsExpired = False
     
-    def Initialize(self):
+    def Initialize(self):        
+        from .ai.statemachine.statemachine import StateMachine
+        from .ai.utilitybased.utility_based_ai import UtilityBasedAI
+        from core.graphic.animation_controller import AnimationController
+        
         print ("And he said, be initialized! Entity.")
-        if (self.mStateMachine != None):
-            self.mStateMachine.Initialize()
-        if (self.mUtilityBasedAI != None):
-            self.mUtilityBasedAI.Initialize()
+        
+        for currentChild in self.children:
+
+            if isinstance(currentChild, StateMachine) \
+                or isinstance(currentChild, UtilityBasedAI) \
+                or isinstance(currentChild, AnimationController):
+                currentChild.Initialize(self)
     
     def Update(self, dt):
         if (self.mStateMachine != None):
