@@ -17,7 +17,6 @@ from kivy.lang import Builder
 Builder.load_file('game/entities/Cat.kv')
 
 class CatWidget(Entity):
-    # Exposed Values #
     # Cat Values
     mSpeed = NumericProperty(1.0)
     
@@ -39,24 +38,24 @@ class CatWidget(Entity):
     mHygineMax = NumericProperty(25.0)
     mHungerMax = NumericProperty(40.0)
     
-    _HapinessPulse = 0
-    _EnergyPulse = 0
-    _HyginePulse = 0
-    _LitterboxPulse = 0
-    _HungerPulse = 0
-    
-    _LabelPulse = 0
-    _CatTalkPulse = 0
-    _RandomTalkPulse = random.randint(1, 10)
-    
-    _Heading = Vector(0,0)
-    
-    _MarkedMoveDirection = None
-    _CatPetMeter = 10
-    _CatPetCounter = 0
-    
     def __init__(self, **kwargs):
         super(CatWidget, self).__init__(**kwargs)
+        
+        # Private variables
+        self._HapinessPulse = 0
+        self._EnergyPulse = 0
+        self._HyginePulse = 0
+        self._LitterboxPulse = 0
+        self._HungerPulse = 0
+        
+        self._LabelPulse = 0
+        self._CatTalkPulse = 0
+        self._RandomTalkPulse = random.randint(1, 10)
+        
+        self._Heading = Vector(0,0)
+        
+        self._MarkedMoveDirection = None
+        self._CatPetMeter = 10
         self._CatPettingCounter = 0
         
     def Initialize(self):

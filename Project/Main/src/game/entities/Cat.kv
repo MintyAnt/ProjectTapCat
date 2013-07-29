@@ -1,16 +1,13 @@
 <CatWidget>:
 	mUtilityBasedAI: mUtilityBasedAI
-	
-    pos: 100, 400
-    size: 75, 75
     mEnergy: 10
     
-    canvas:
-        Color:
-            rgb: 0.7, 0.2, 0
-        Rectangle:
-            pos: self.pos
-            size: root.size
+    #canvas:
+        #Color:
+            #rgb: 0.7, 0.2, 0
+        #Rectangle:
+            #pos: self.pos
+            #size: self.size
 
 	Label:
 		text: root.cat_label
@@ -24,21 +21,21 @@
         
 
     Image:
-    	source: "tapcat_side.jpg"
+    	source: "tapcat_side_2.png"
     	pos: root.pos
-        size: (root.width * 1.35, root.height * 1.35)
-        keep_ratio: True
+        #keep_ratio: True
         allow_stretch: True
+        size: root.size
         
-    AnimationController:
-    	pos: root.pos
-    	mStartingAnimation: "flying"
-    	AnimationGraphic:
-    		mID: "flying"
-    		mSpriteStripSource: "shipAnimation.png"
-    		mNumFrames: 8
-    		mFrameDimensions: 115, 69
-    		mAnimateSpeed: .030
+    #AnimationController:
+    	#pos: root.pos
+    	#mStartingAnimation: "flying"
+    	#AnimationGraphic:
+    		#mID: "flying"
+    		#mSpriteStripSource: "shipAnimation.png"
+    		#mNumFrames: 8
+    		#mFrameDimensions: 115, 69
+    		#mAnimateSpeed: .030
         
     UtilityBasedAI:
     	id: mUtilityBasedAI

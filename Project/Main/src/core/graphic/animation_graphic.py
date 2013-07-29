@@ -15,14 +15,11 @@ class AnimationGraphic(Widget):
     mFrameDimensions = ListProperty([0, 0])
     mAnimateSpeed = NumericProperty(0)
     
-    mCurrentTextureArea = None
-    
-    _CurrentFrameIndex = 0
-    _AnimatePulse = 0
-    mSpriteStripSourceImage = None
-    
     def Initialize(self):
         self.mSpriteStripSourceImage = Image(source=self.mSpriteStripSource, pos=self.pos)
+        self.mCurrentTextureArea = None
+        self._CurrentFrameIndex = 0
+        self._AnimatePulse = 0
     
     def Start(self):
         self.UpdateFrame()

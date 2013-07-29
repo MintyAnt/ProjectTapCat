@@ -1,12 +1,13 @@
 <FoodBowlWidget>:
-	size: 100, 100
     Image:
-    	source: "CatBowl.jpg"
-    	#pos: (root.x - 10, root.y - 10)
+    	source: "CatBowl.png"
     	pos: root.pos
-        #size: (root.width * 1.35, root.height * 1.35)
-        keep_ratio: True
+		#size: root.size
+        #keep_ratio: True
         allow_stretch: True
+        size: root.size
+        #width: self.texture_size[0] / app.root.width
+        #height: self.texture_size[1] / app.root.height
         
     Label:
     	text: ("%d/50" % (root.mFoodValue))

@@ -9,8 +9,10 @@ from kivy.vector import Vector
 from ..action import Action
 
 class ActionCatWander(Action):
-    _Target = Vector(0,0)
     
+    def __init__(self):
+        self._Target = Vector(0,0)
+        
     def IsDone(self, inCat):
         return True
     
@@ -39,7 +41,11 @@ class ActionCatWander(Action):
         
         if (myPos == self._Target):
             # find a new target
-            self._Target = Vector(random.randrange(0, 500), random.randrange(0, 500))
+            from core import engine
+            map = engine.GetInstance().mGame.mMap
+            xRandom = random.uniform(map.x, map.right - inCat.width)
+            yRandom = random.uniform(map.y, map.top - inCat.height)
+            self._Target = Vector(xRandom, yRandom)
     
     def Exit(self, inCat):
         pass

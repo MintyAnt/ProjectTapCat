@@ -1,0 +1,74 @@
+<GameHUDScreen>:
+	AnchorLayout:
+		anchor_x: 'center'
+		anchor_y: 'bottom'
+		size: root.size
+		
+		StackLayout:
+			orientation: 'lr-bt'
+			size_hint: 1, .2
+			
+			Button:
+				text: "item1"
+				size_hint_x: .25
+			
+			Button:
+				text: "item2"
+				size_hint_x: .25
+			
+			Button:
+				text: "item3"
+				size_hint_x: .25
+			
+			Button:
+				text: "item4"
+				size_hint_x: .25
+	
+	AnchorLayout:
+		anchor_x: 'left'
+		anchor_y: 'top'
+		size: root.size
+		
+		# Bars
+		BoxLayout:
+			size_hint: .25, .35
+			orientation: 'vertical'
+			
+			# Energy
+			StatusBarWidget:
+				statusName: "Energy"
+				value: app.root.mMap.mCat.mEnergy
+				max: app.root.mMap.mCat.mEnergyMax
+			
+			# Hapiness
+			StatusBarWidget:
+				statusName: "Happiness"
+				value: app.root.mMap.mCat.mHapiness
+				max: app.root.mMap.mCat.mHapinessMax
+				
+			# LitterBox
+			StatusBarWidget:
+				statusName: "LitterBox"
+				value: app.root.mMap.mCat.mLitterBox
+				max: app.root.mMap.mCat.mLitterBoxMax
+				
+			# Hygine
+			StatusBarWidget:
+				statusName: "Hygine"
+				value: app.root.mMap.mCat.mHygine
+				max: app.root.mMap.mCat.mHygineMax
+				
+			# Hunger
+			StatusBarWidget:
+				statusName: "Hunger"
+				value: app.root.mMap.mCat.mHunger
+				max: app.root.mMap.mCat.mHungerMax
+				
+	AnchorLayout:
+		anchor_x: 'right'
+		anchor_y: 'top'
+		size: root.size
+		
+		Button:
+			text: "cat area"
+			size_hint: .1, .1

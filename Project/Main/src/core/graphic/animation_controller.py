@@ -16,12 +16,10 @@ class AnimationController(Widget):
     mStartingAnimation = StringProperty("")
     _CurrentImage = ObjectProperty(None)
     
-    mAnimations = {}
-    
-    _CurrentAnimation = None
-    
     def __init__(self, **kwargs):
         super(AnimationController, self).__init__(**kwargs)
+        self.mAnimations = {}
+        self._CurrentAnimation = None
         
     def add_widget(self, widget):
         super(AnimationController, self).add_widget(widget)

@@ -13,6 +13,9 @@ Builder.load_file('game/entities/FoodBowl.kv')
 class FoodBowlWidget(Entity):
     mFoodValue = NumericProperty(10)
     
+    def __init__(self, **kwargs):
+        super(FoodBowlWidget, self).__init__(**kwargs)
+        
     def GetFood(self):
         return self.mFoodValue
     
@@ -21,3 +24,6 @@ class FoodBowlWidget(Entity):
     
     def IsThereFoodInBowl(self):
         return (self.mFoodValue > 0)
+    
+    def Update(self, dt):
+        super(FoodBowlWidget, self).Update(dt)

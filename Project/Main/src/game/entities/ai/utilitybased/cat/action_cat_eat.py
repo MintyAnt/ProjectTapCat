@@ -9,13 +9,15 @@ from kivy.vector import Vector
 import math
 
 class ActionCatEat(Action):
-    mEatingTime = .5
-    mFoodPerEnergy = 2
     
-    _EatCounter = 0
-    _EatingPulse = 0
-    
-    _bDone = False
+    def __init__(self):
+        self.mEatingTime = .5
+        self.mFoodPerEnergy = 2
+        
+        self._EatCounter = 0
+        self._EatingPulse = 0
+        
+        self._bDone = False
     
     def IsDone(self, inCat):
         return self._bDone

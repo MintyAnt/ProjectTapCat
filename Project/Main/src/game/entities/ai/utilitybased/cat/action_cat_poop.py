@@ -10,10 +10,12 @@ from kivy.vector import Vector
 import math
 
 class ActionCatPoop(Action):
-    _LitterBoxLocation = Vector(0, 0)
-    _bComplete = False
-    _PoopMax = 50.0
     
+    def __init__(self):
+        self._LitterBoxLocation = Vector(0, 0)
+        self._bComplete = False
+        self._PoopMax = 50.0
+        
     def IsDone(self, inCat):
         return self._bComplete
     
@@ -83,7 +85,7 @@ class ActionCatPoop(Action):
             newPoo = PooWidget()
             newPoo.pos = inCat.pos
             map.mMapEntities.append(newPoo) 
-            map.mMapRootElement.add_widget(newPoo)
+            map.add_widget(newPoo)
         
         # Reset poo
         inCat.mLitterBox = 0

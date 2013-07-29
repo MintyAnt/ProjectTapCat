@@ -1,7 +1,7 @@
 <Map>:        
-	mCat: the_cat
-	mLitterBox: the_litter
-	mFoodBowl: the_food
+	mCat: mCat
+	mLitterBox: mLitterBox
+	mFoodBowl: mFoodBowl
 	
     canvas:
         Color:
@@ -10,100 +10,25 @@
             size: self.width, self.height
 	
 	Image:
-    	source: "Rug2.png"
-        size: root.size
+    	source: "Background_v3.png"
         allow_stretch: True
-        keep_ratio: False
-        pos: root.pos
+        #keep_ratio: False
+        size_hint: 1,1
 		
 	LitterBoxWidget:
-		id: the_litter
-		pos: 350, 400
+		id: mLitterBox
+		#pos: 350, 400
+		pos_hint: {'x': .5, 'y': .05}
+		size_hint: .5, .5
 		
 	FoodBowlWidget
-		id: the_food
-		pos: 600, 300
+		id: mFoodBowl
+		#pos: 600, 300
+		pos_hint: {'x': .3, 'y': .5}
+		size_hint: .35, .35
 
 	CatWidget:
-		id: the_cat
+		id: mCat
+		#size: 25, 25
+		size_hint: .5, .5
 		
-	# Bars
-	# Energy
-	ProgressBar:
-		pos: 10, root.top - 70
-		value: the_cat.mEnergy
-		max: the_cat.mEnergyMax
-	
-		Label:
-			text: "Energy"
-			pos: self.parent.x, self.parent.y + 10
-		Label:
-			text: str(the_cat.mEnergy)
-			pos: self.parent.x - self.parent.width / 2.0, self.parent.y
-		Label:
-			text: str(the_cat.mEnergyMax)
-			pos: self.parent.x + self.parent.width / 2.0, self.parent.y
-	
-	# Hapiness
-	ProgressBar:
-		pos: 10, root.top - 90
-		value: the_cat.mHapiness
-		max: the_cat.mHapinessMax
-	
-		Label:
-			text: "Hapiness"
-			pos: self.parent.x, self.parent.y + 10
-		Label:
-			text: str(the_cat.mHapiness)
-			pos: self.parent.x - self.parent.width / 2.0, self.parent.y
-		Label:
-			text: str(the_cat.mHapinessMax)
-			pos: self.parent.x + self.parent.width / 2.0, self.parent.y
-	
-	# LitterBox
-	ProgressBar:
-		pos: 10, root.top - 120
-		value: the_cat.mLitterBox
-		max: the_cat.mLitterBoxMax
-	
-		Label:
-			text: "LitterBox"
-			pos: self.parent.x, self.parent.y + 10
-		Label:
-			text: str(the_cat.mLitterBox)
-			pos: self.parent.x - self.parent.width / 2.0, self.parent.y
-		Label:
-			text: str(the_cat.mLitterBoxMax)
-			pos: self.parent.x + self.parent.width / 2.0, self.parent.y
-	
-	# Hygine
-	ProgressBar:
-		pos: 10, root.top - 150
-		value: the_cat.mHygine
-		max: the_cat.mHygineMax
-	
-		Label:
-			text: "Hygine"
-			pos: self.parent.x, self.parent.y + 10
-		Label:
-			text: str(the_cat.mHygine)
-			pos: self.parent.x - self.parent.width / 2.0, self.parent.y
-		Label:
-			text: str(the_cat.mHygineMax)
-			pos: self.parent.x + self.parent.width / 2.0, self.parent.y
-	
-	# Hygine
-	ProgressBar:
-		pos: 10, root.top - 180
-		value: the_cat.mHunger
-		max: the_cat.mHungerMax
-	
-		Label:
-			text: "Hunger"
-			pos: self.parent.x, self.parent.y + 10
-		Label:
-			text: str(the_cat.mHunger)
-			pos: self.parent.x - self.parent.width / 2.0, self.parent.y
-		Label:
-			text: str(the_cat.mHungerMax)
-			pos: self.parent.x + self.parent.width / 2.0, self.parent.y

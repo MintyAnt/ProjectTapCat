@@ -10,11 +10,10 @@ from game.entities.poo import PooWidget
 
 ''' ############################################################# '''
 class StateMachine():
-    _Owner = None
-    mCurrentState = None
-    mPreviousState = None
     
     def __init__(self, inOwner):
+        self.mCurrentState = None
+        self.mPreviousState = None
         self._Owner = inOwner
         
     def Initialize(self, inOwner):

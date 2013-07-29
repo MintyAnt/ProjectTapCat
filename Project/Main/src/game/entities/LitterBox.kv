@@ -1,10 +1,10 @@
 <LitterBoxWidget>:
-    pos: 500, 50
-    size: 150, 150
-    
     Image:
     	source: "LitterBox.png"
     	pos: root.pos
+    	size: root.size
+    	#width: self.texture_size[0] + dp(root.width)
+    	#height: self.texture_size[1] + dp(root.height)
     	
     Label:
     	text: ("%d/%d" % (root._LitterCount, root._MaxLitter))

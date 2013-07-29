@@ -8,10 +8,13 @@ import math
 from ..action import Action
 
 class ActionCatSleep(Action):
-    _bIsDone = False
-    _SleepPulse = 0
-    _SleepPulseTime = 1
     
+    def __init__(self):
+        self._bIsDone = False
+        self._SleepPulse = 0
+        self._SleepPulseTime = 1
+        
+        
     def IsDone(self, inCat):
         doneValue = inCat.mEnergy > (inCat.mEnergyMax / 2.0)
         return doneValue

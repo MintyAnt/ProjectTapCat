@@ -1,0 +1,16 @@
+<StatusBarWidget>:
+	Label:
+		size: self.texture_size
+		text: str(root.statusName)
+		x: root.center_x - (self.width / 2.0)
+		y: root.center_y
+	Label:
+		size: self.texture_size
+		font_size: '12sp'
+		text: str(int(root.value))
+		pos: root.pos
+	Label:
+		size: self.texture_size
+		font_size: '12sp'
+		text: str(int(root.max))
+		pos: root.right, root.y

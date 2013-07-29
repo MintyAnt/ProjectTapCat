@@ -21,10 +21,8 @@ def GetInstance():
     return gEngineInstance
 
 class Engine():
-    mGame = None
-    
     def __init__(self):
-        pass
+        self.mGame = None
     
     def GetRoot(self):
         self.mGame = Game()

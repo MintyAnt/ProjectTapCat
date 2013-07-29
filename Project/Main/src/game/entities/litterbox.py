@@ -15,15 +15,14 @@ from .entity import Entity
 Builder.load_file('game/entities/LitterBox.kv')
 
 class LitterBoxWidget(Entity):
-    #DisplayLitter = StringProperty("0/0")
     _LitterCount = NumericProperty(40)
     _MaxLitter = NumericProperty(50)
-    _LitterboxPoo = []
     
     def __init__(self, **kwargs):
         super(LitterBoxWidget, self).__init__(**kwargs)
-        #self.UpdateText()
         
+        self._LitterboxPoo = []
+    
     def PerformPoo(self, inCat):
         # Add poo to us
         catLitterValue = 10#inCat.LitterBox
@@ -38,10 +37,12 @@ class LitterBoxWidget(Entity):
         
         rightMostX = self.right - newPoo.width
         rightMostY = self.top - newPoo.height
-        newPoo.pos = random.randrange(self.x, rightMostX), random.randrange(self.y, rightMostY)
+        
+        print ("args are (", self.x, ", ", rightMostX, ") (", self.y, ", ", rightMostY)
+        newPoo.pos = random.uniform(self.x, rightMostX), random.uniform(self.y, rightMostY)
         
         map.mMapEntities.append(newPoo) 
-        map.mMapRootElement.add_widget(newPoo)
+        map.add_widget(newPoo)
         
         self._LitterboxPoo.append(newPoo)
         

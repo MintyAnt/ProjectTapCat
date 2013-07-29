@@ -12,13 +12,13 @@ class UtilityBasedAI(Widget):
     mDefaultAction = StringProperty("")
     mActions = ListProperty([])
     
-    mCurrentAction = None
-    _Actions = []
-    _DefaultAction = None
-    _Owner = None
-    
     def __init__(self, **kwargs):
         super(UtilityBasedAI, self).__init__(**kwargs)
+        
+        self.mCurrentAction = None
+        self._Actions = []
+        self._DefaultAction = None
+        self._Owner = None
     
     def Initialize(self, inOwner):
         print ("Initializing Utility")
@@ -53,7 +53,6 @@ class UtilityBasedAI(Widget):
         
         #Iterate through all actions. Calculate highest
         for currentAction in self._Actions:
-            
             currentWeight = currentAction.GetUtility(self._Owner)
             if (currentWeight >= highestActionUtility):
                 highestAction = currentAction
