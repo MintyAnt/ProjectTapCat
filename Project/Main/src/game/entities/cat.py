@@ -14,6 +14,7 @@ from .ai.utilitybased.utility_based_ai import UtilityBasedAI
 from .entity import Entity
 from kivy.lang import Builder
 from kivy.core.audio import SoundLoader
+from random import choice
 
 Builder.load_file('game/entities/Cat.kv')
 
@@ -87,6 +88,8 @@ class CatWidget(Entity):
             newHappySound = SoundLoader.load(self.sound_cat_happy)
             #assert newHappySound, "couldnt load " + happy
             self._SoundHappy.append(newHappySound)
+            
+        self._currentSadNouse = choice(self._SoundSad)
     
     def Update(self, dt):
         super(CatWidget, self).Update(dt)
@@ -118,7 +121,6 @@ class CatWidget(Entity):
         if (self._LabelPulse <= 0):
             self.cat_label = ""
             
-        from random import choice
             
         if (self._RandomTalkPulse <= 0 and self._CatTalkPulse <= 0):
             self.cat_talk_label = "meow"
