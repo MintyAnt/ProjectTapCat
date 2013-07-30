@@ -67,6 +67,7 @@ class CatWidget(Entity):
         self._SoundHappy = []
         self.bIsPurring = False
         self.purrPulse = 0
+        self._currentSadNouse = None
         
     def Initialize(self):
         super(CatWidget, self).Initialize()
@@ -139,8 +140,10 @@ class CatWidget(Entity):
             
         if (self.mHapiness <= 0):
             self.cat_talk_label = "meoowwwwwwwwwww :("
-            randomNoise = choice(self._SoundSad)
-            randomNoise.play()
+        
+            if (self._currentSadNouse != None and self._currentSadNouse.state != 'play'):
+                self._currentSadNouse = choice(self._SoundSad)
+                self._currentSadNouse.play()
             
         self.purrPulse -= dt
         if (self.purrPulse <= 0):
