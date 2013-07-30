@@ -4,5 +4,8 @@ Created on Jul 27, 2013
 @author: MintyAnt
 '''
 
+from .inventory import Inventory
+
 class Player():
-    mInventory = None
+    def __init__(self):
+        self.mInventory = Inventory()

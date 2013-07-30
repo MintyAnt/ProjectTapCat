@@ -1,28 +1,33 @@
 <GameHUDScreen>:
+	bottomBar: bottomBar
+	
 	AnchorLayout:
+		itemSelectionGroup: itemSelectionGroup
+	
+		id: bottomBar
 		anchor_x: 'center'
 		anchor_y: 'bottom'
 		size: root.size
 		
 		StackLayout:
+			id: itemSelectionGroup
 			orientation: 'lr-bt'
 			size_hint: 1, .2
 			
-			Button:
-				text: "item1"
+			ItemFood:
+				text: "Food"
 				size_hint_x: .25
+				group: "itemSelection"
 			
-			Button:
-				text: "item2"
+			ItemPoopScoop:
+				text: "Waste Scoop"
 				size_hint_x: .25
-			
-			Button:
-				text: "item3"
+				group: "itemSelection"
+				
+			ToggleButton:
+				text: "Brush"
 				size_hint_x: .25
-			
-			Button:
-				text: "item4"
-				size_hint_x: .25
+				group: "itemSelection"
 	
 	AnchorLayout:
 		anchor_x: 'left'

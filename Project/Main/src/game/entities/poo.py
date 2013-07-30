@@ -15,9 +15,21 @@ class PooWidget(Entity):
     def __init__(self, **kwargs):
         super(PooWidget, self).__init__(**kwargs)
         
-        self._LifeTime = 5
-        
-        Clock.schedule_interval(self.Update, 1.0 / 60.0)
-        
     def Update(self, dt):
         super(PooWidget, self).Update(dt)
+        
+    def on_touch_up(self, touch):
+        super(PooWidget, self).on_touch_up(touch)
+        
+        if self.collide_point(touch.x, touch.y):
+            # Get current item
+            from game.items.item_poop_scoop import ItemPoopScoop
+            from core import engine
+            engineInstance = engine.GetInstance()
+            selectedItem = engineInstance.mGame.mPlayer.mInventory.GetSelectedItem()
+            
+            print ("Selected item: ", selectedItem)
+            
+            if isinstance(selectedItem, ItemPoopScoop):
+                # Clean self up!
+                self.mbIsExpired = True

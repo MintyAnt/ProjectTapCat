@@ -55,7 +55,24 @@ class LitterBoxWidget(Entity):
             currentPoo.mbExpired = True
         
         self._LitterboxPoo = []
+        self._LitterCount = 0
         
     def UpdateText(self):
         self.DisplayLitter = ("%d/%d" % (self._LitterCount, self._MaxLitter))
+        
+    def on_touch_up(self, touch):
+        super(LitterBoxWidget, self).on_touch_up(touch)
+        
+        if self.collide_point(touch.x, touch.y):
+            # Get current item
+            from game.items.item_poop_scoop import ItemPoopScoop
+            from core import engine
+            engineInstance = engine.GetInstance()
+            selectedItem = engineInstance.mGame.mPlayer.mInventory.GetSelectedItem()
+            
+            print ("Selected item: ", selectedItem)
+            
+            if isinstance(selectedItem, ItemPoopScoop):
+                # Clean self up!
+                self.EmptyBox()
         

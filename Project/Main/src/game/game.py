@@ -9,6 +9,7 @@ from kivy.uix.widget import Widget
 from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import StringProperty, NumericProperty, ObjectProperty
 from .map.map import Map
+from .player.player import Player
 from core.userinterface.user_interface_manager import UserInterfaceManager
 
 Builder.load_file('game/TapCatGame.kv')
@@ -19,6 +20,7 @@ class Game(FloatLayout):
         
     def __init__(self, **kwargs):
         super(Game, self).__init__(**kwargs)
+        self.mPlayer = Player()
     
     def Initialize(self):
         self.mMap = Map(size_hint= (1, .8), pos_hint = {'top' : 1})

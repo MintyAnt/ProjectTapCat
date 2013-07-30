@@ -6,13 +6,14 @@ Created on Jun 18, 2013
 
 import random
 from kivy.clock import Clock
-from kivy.properties import StringProperty, NumericProperty, ObjectProperty
+from kivy.properties import StringProperty, NumericProperty, ObjectProperty, ListProperty
 from kivy.vector import Vector
 from core.graphic.animation_controller import AnimationController
 from core.graphic.animation_graphic import AnimationGraphic
 from .ai.utilitybased.utility_based_ai import UtilityBasedAI
 from .entity import Entity
 from kivy.lang import Builder
+from kivy.core.audio import SoundLoader
 
 Builder.load_file('game/entities/Cat.kv')
 
@@ -23,7 +24,11 @@ class CatWidget(Entity):
     # Cat Gui Stuff
     cat_label = StringProperty("")
     cat_talk_label = StringProperty("")
-    cat_state_label = StringProperty()
+    cat_state_label = StringProperty("")
+    
+    sound_cat_normal_meow = ListProperty([])
+    sound_cat_sad = ListProperty([])
+    sound_cat_happy = StringProperty("")
     
     # Cat Levels
     mHapiness = NumericProperty(25)
@@ -57,11 +62,30 @@ class CatWidget(Entity):
         self._MarkedMoveDirection = None
         self._CatPetMeter = 10
         self._CatPettingCounter = 0
+        self._SoundNormalMeow = []
+        self._SoundSad = []
+        self._SoundHappy = []
+        self.bIsPurring = False
+        self.purrPulse = 0
         
     def Initialize(self):
         super(CatWidget, self).Initialize()
         #self.cat_state_label = str(self.mStateMachine.mCurrentState)
         #self.cat_state_label = str(self.mUtilityBasedAI.mCurrentAction)
+        for meows in self.sound_cat_normal_meow:
+            newMeowSound = SoundLoader.load(meows)
+            assert newMeowSound, "couldnt load " + meows
+            self._SoundNormalMeow.append(newMeowSound)
+            
+        for sad in self.sound_cat_sad:
+            newSadSound = SoundLoader.load(sad)
+            assert newSadSound, "couldnt load " + sad
+            self._SoundSad.append(newSadSound)
+            
+        #for happy in self.sound_cat_happy:
+            newHappySound = SoundLoader.load(self.sound_cat_happy)
+            #assert newHappySound, "couldnt load " + happy
+            self._SoundHappy.append(newHappySound)
     
     def Update(self, dt):
         super(CatWidget, self).Update(dt)
@@ -93,8 +117,12 @@ class CatWidget(Entity):
         if (self._LabelPulse <= 0):
             self.cat_label = ""
             
+        from random import choice
+            
         if (self._RandomTalkPulse <= 0 and self._CatTalkPulse <= 0):
             self.cat_talk_label = "meow"
+            randomNoise = choice(self._SoundNormalMeow)
+            randomNoise.play()
             self._CatTalkPulse = 1
             self._RandomTalkPulse = random.randint(1, 10)
             
@@ -108,6 +136,25 @@ class CatWidget(Entity):
         if (self._HungerPulse <= 0):
             self.mHunger -= 1
             self._HungerPulse = 7.5
+            
+        if (self.mHapiness <= 0):
+            self.cat_talk_label = "meoowwwwwwwwwww :("
+            randomNoise = choice(self._SoundSad)
+            randomNoise.play()
+            
+        self.purrPulse -= dt
+        if (self.purrPulse <= 0):
+            self.bIsPurring = False
+            
+        if (self.mHapiness >= 40 and not self.bIsPurring):
+            self.cat_talk_label = "mew! :)"
+        
+            randomNoise = choice(self._SoundHappy)
+            if (randomNoise.state != 'play'):
+                randomNoise.play()
+            
+            self.bIsPurring = True
+            self._purrPulse = 12
         
     def on_touch_down(self, touch):
         if (self.collide_point(touch.x, touch.y)):
